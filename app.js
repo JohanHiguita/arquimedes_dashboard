@@ -4,6 +4,7 @@ const express = require("express")
 const passport = require("passport")
 const passportSetup = require("./config/oauth")
 const mongoose = require("mongoose")
+const cookiSession = require("cookie-session")
 
 // Create a new Express application.
 const app = express()
@@ -12,8 +13,14 @@ const app = express()
 app.set("views", __dirname + "/views")
 app.set("view engine", "ejs")
 
-//connect to mongoDB
+app.use(cookiSession({
+  maxAge: 24*60*60*100,
+  keys: [process.env.COOKIE_KEY]
 
+}))
+
+
+//connect to mongoDB
 mongoose.connect(process.env.MONGO_URI, () => {
   console.log("connected to mongoDB.")
 })
@@ -52,7 +59,7 @@ app.get(
 
 app.get(
   "/return",
-  passport.authenticate("google", { failureRedirect: "/login" }), //???
+  passport.authenticate("google", { failureRedirect: "/login" }), //??? this is a middleware
   function(req, res) {
     res.redirect("/")
   }
