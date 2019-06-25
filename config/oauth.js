@@ -40,7 +40,7 @@ passport.use(
 )
 
 
-//????
+//this attach user to req: req.user
 passport.serializeUser(function(user, cb) {
   cb(null, user)
 })

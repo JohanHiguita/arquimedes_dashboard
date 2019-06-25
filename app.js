@@ -4,7 +4,7 @@ const express = require("express")
 const passport = require("passport")
 const passportSetup = require("./config/oauth")
 const mongoose = require("mongoose")
-const cookiSession = require("cookie-session")
+const cookieSession = require("cookie-session")
 
 // Create a new Express application.
 const app = express()
@@ -13,7 +13,7 @@ const app = express()
 app.set("views", __dirname + "/views")
 app.set("view engine", "ejs")
 
-app.use(cookiSession({
+app.use(cookieSession({
   maxAge: 24*60*60*100,
   keys: [process.env.COOKIE_KEY]
 
